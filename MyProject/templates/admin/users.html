@@ -1,0 +1,104 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Пользователи</title>
+    <link rel="stylesheet" href={% static 'css/common/common.css' %}>
+    <link rel="stylesheet" href={% static 'css/common/common2.css' %}>
+    <link rel="stylesheet" href={% static 'css/admin/users.css' %}>
+    <link rel="shortcut icon" href={% static 'icons/logo.png' %}> 
+    <script src={% static 'js/menu.js' %}></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+</head>
+<body>
+    <div class="name">
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <div class="icon"><img src={% static 'icons/iconuser.png' %}></div><div class="user">{{name}}</div>
+                <a href="/admin/select/?id={{id}}">На главную</a>
+                <a href="#" class="here">Пользователи</a>
+                <a href="/admin/groups/?id={{id}}">Группы</a>
+                <a href="/admin/tt/?id={{id}}">Предметы, темы и типы</a>
+                <a href="/admin/questions/?id={{id}}">Вопросы</a>
+                <a href="/admin/tests/?id={{id}}">Тесты</a>
+                <a href="/admin/homework/?id={{id}}">Домашнее задание</a>
+                <a href="/admin/writing/?id={{id}}">Записи</a>
+                <form action="/admin/select/" method="POST">{% csrf_token %}
+                    <input type="submit" name="quit" value="Выйти" class="btn">
+                    <input type="hidden" name="id" value="{{id}}">
+                </form>
+            </div>
+          </div>
+          <h3>Gerzevich.info</h3>
+    </div>
+    <div class="fly"></div>
+    <p><div class="new">
+        <details {% if open == 'True' %}open{% endif %} class="flag">
+            <summary class="flag">Добавить несколько</summary>
+            <form action="/admin/users/" method="POST">{% csrf_token %}
+                <p><textarea name='users' cols="25" rows="10" placeholder="Имя,Фамилия" required></textarea></p>
+                <p><input type="radio" name="status" value="Учитель" required class="radio">
+                <label>Учителя</label>
+                <input type="radio" name="status" value="Ученик" required class="radio">
+                <label>Ученики</label></p>
+                <input type="submit" name="newmany" value="Добавить" class="submit">
+                <input type="hidden" name="id" value="{{id}}" hidden>
+            </form>
+        </details>
+    </div></p>
+    <p><div class="list">
+        <p><form action="/admin/users/" method="POST">{% csrf_token %}
+            <div class="search">
+                <input name="search" autocomplete="off" placeholder="id, имя, фамилия или статус" value="{{search}}" class="search1">
+                <input type="submit" name="btn" value="Искать" class="search2">
+            </div>
+            <div class="triangle"></div>
+            <input type="hidden" name="id" value="{{id}}" hidden>
+        </form></p>
+        <table border="1px">
+            <tr><th>id</th><th>Имя,Фамилия</th><th>Логин</th><th>Пароль</th><th>Статус</th><th>Изменить</th><th>Действие</th></tr>
+            <form action="/admin/users/" method="POST" id="form">{% csrf_token %}
+            <tr>
+            <td>-</td>
+            <td><input name="users" placeholder="Имя, Фамилия" size="15" required autocomplete="off" class="input"></td>
+            <td>Автоматически</td>
+            <td>Автоматически</td>
+            <td>
+            <select name="status" required>
+                <option name="">Ученик</option>
+                <option name="">Учитель</option>
+            </select>
+            </td>
+            <td>-</td>
+            <td><input type="submit" name="new" value="Добавить" class="submit"></td>
+            </tr>
+            <input type="hidden" name="id" value="{{id}}">
+            </form>
+            {% if listusers|length == 0 %}
+                <tr><td colspan="7">Такого пользователя не существует</td></tr>
+            {% endif %}
+            {% for user in listusers %}
+            <form action="/admin/users/" method="POST" id="form">{% csrf_token %}
+                <tr>
+                <td>{{user.0}}</td>
+                <td><input name="name" value="{{user.1}}" size="15" class="input" autocomplete="off"></td>
+                <td><input name="login" value="{{user.2}}" size="10" class="input" autocomplete="off"></td>
+                <td><input name="password" value="{{user.3}}" size="10" class="input" autocomplete="off"></td>
+                <td>{{user.4}}</td>
+                <td><input type="submit" name="up" value="Изменить" class="submit"></td>
+                {% ifnotequal user.1 name %}
+                <td><input type="submit" name="del" value="Удалить" class="submit"></td>
+                {% else %}
+                <td>-</td>
+                {% endifnotequal %}
+                </tr>
+            <input type="hidden" name="iduser" value="{{user.0}}">
+            <input type="hidden" name="id" value="{{id}}">
+            </form>
+            {% endfor %}
+        </table>
+    </div></p>
+</body>
+</html>

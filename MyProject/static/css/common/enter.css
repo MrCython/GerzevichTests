@@ -1,0 +1,64 @@
+div.up{
+    background-color: black;
+    height: 60px;
+}
+div.up>h3{
+    padding: 20px;
+    font-family: sans-serif;
+    margin: 0px;
+    text-align: center;
+    color:white;
+}
+div.up>h3>name{
+    color: yellowgreen;
+}
+div.up>h3>t{
+    margin-left: 50%;
+    font-family: sans-serif;
+    color: gold;
+}
+div.pole{
+    background-color: gainsboro;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+div.pole>form{
+    padding: 10px;
+    font-family: sans-serif;
+}
+.form_button {
+    margin-top: 5%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16xp;
+    color :#fff ;
+    background-color: #0071f0;
+    outline: none;  
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+.form_input1 {
+    width: 90%;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    transition: 0.3s;
+}
+.form_input2 {
+    width: 90%;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    transition: 0.3s;
+}
