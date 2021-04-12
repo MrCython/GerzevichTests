@@ -1,0 +1,56 @@
+input.input{
+    background-color: whitesmoke;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: grey;
+}
+input.input:focus{
+    padding: 5px 0 1px 5px;
+    border-color: green;
+}
+.submit{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16xp;
+    color :#fff ;
+    background-color: #439bc4;
+    outline: none;  
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+table{
+    width: 40%;
+}
+div.list{
+    margin-left: 5px;
+}
+.del{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16xp;
+    color :#fff ;
+    background-color: #213842;
+    outline: none;  
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+input.input2{
+    width: 90%;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: grey;
+}
+input.input2:focus{
+    padding: 5px 0 1px 5px;
+    border-color: green;
+}
+textarea{
+    border: 2px solid #888;
+    border-radius: 5px;
+}

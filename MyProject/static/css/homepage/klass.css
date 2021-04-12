@@ -1,0 +1,17 @@
+div.list{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+div.record{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border: 1px solid grey;
+}
+div.record>h{
+    font-weight: bold;
+}
+div.record>h>d{
+    color: grey;
+}

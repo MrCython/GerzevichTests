@@ -1,0 +1,21 @@
+table {
+	width: auto;
+	margin-bottom: 20px;
+	border: 1px solid grey;
+	border-collapse: collapse; 
+    min-width: 40%;
+}
+table th {
+	font-weight: bold;
+	padding: 5px;
+	background: wheat;
+	border: 1px solid grey;
+}
+table td {
+	background: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+.button{
+    color: blueviolet;
+}

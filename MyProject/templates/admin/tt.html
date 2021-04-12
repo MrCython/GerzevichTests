@@ -1,0 +1,153 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Темы и типы</title>
+    <link rel="stylesheet" href={% static 'css/common/common.css' %}>
+    <link rel="stylesheet" href={% static 'css/common/common2.css' %}>
+    <link rel="stylesheet" href={% static 'css/admin/tt.css' %}>
+    <link rel="shortcut icon" href={% static 'icons/logo.png' %}> 
+    {% block extrahead %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    {% endblock extrahead %}
+    <script src={% static 'js/menu.js' %}></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+</head>
+<body>
+    <div class="name">
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Menu</button>
+            <div id="myDropdown" class="dropdown-content">
+                <div class="icon"><img src={% static 'icons/iconuser.png' %}></div><div class="user">{{name}}</div>
+                <a href="/admin/select/?id={{id}}">На главную</a>
+                <a href="/admin/users/?id={{id}}">Пользователи</a>
+                <a href="/admin/groups/?id={{id}}">Группы</a>
+                <a href="#" class="here">Предметы, темы и типы</a>
+                <a href="/admin/questions/?id={{id}}" >Вопросы</a>
+                <a href="/admin/tests/?id={{id}}">Тесты</a>
+                <a href="/admin/homework/?id={{id}}">Домашнее задание</a>
+                <a href="/admin/writing/?id={{id}}">Записи</a>
+                <form action="/admin/select/" method="POST">{% csrf_token %}
+                    <input type="submit" name="quit" value="Выйти" class="btn">
+                    <input type="hidden" name="id" value="{{id}}">
+                </form>
+            </div>
+          </div>
+          <h3>Gerzevich.info</h3>
+    </div>
+    <div class="fly"></div>
+    <p><div class="objects">
+        <details {% if openobject == 'True' %}open{% endif %} class="flag">
+            <summary class="flag">Предметы</summary>
+            <p><table border="1px">
+                <tr><th>id</th><th>Название</th><th>Кол-во тем</th><th>Изменить</th><th>Действие</th></tr>
+                <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                    <td>-</td>
+                    <td><input name="name" placeholder="Название" autocomplete="off" class="input" required></td>
+                    <td>-</td>
+                    <td colspan="2"><input type="submit" name="newobject" value="Добавить предмет" class="submit"></td>
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="id" value="{{id}}">
+                </tr></form>
+                {% for t in listobjects %}
+                    <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                        <td><input type="hidden" name="idobject" value="{{t.0}}" required autocomplete="off" placeholder="Название">{{t.0}}</td>
+                        <td><input name="name" value="{{t.1}}" class="input"></td>
+                        <td>{{t.2}}</td>
+                        <td><input type="submit" name="upobject" value="Изменить" class="submit"></td>
+                        <td><input type="submit" name="delobject" value="Удалить" class="submit"></td>
+                        <input type="hidden" name="id" value="{{id}}">
+                    </tr></form>
+                {% endfor %}
+            </table></p>
+        </details>
+    </div></p>
+    <p><div class="topic">
+        <details {% if opentopic == 'True' %}open{% endif %} class="flag">
+            <summary class="flag">Темы</summary>
+            <form action="/admin/tt/" method="POST">{% csrf_token %}
+            <p><select name="object" onchange="this.form.submit()">
+                <option value="{{object.0}}">{{object.1}}</option>
+                {% for t in listobjects %}
+                    {% ifnotequal t.1 object %}
+                        <option value="{{t.0}}">{{t.1}}</option>
+                    {% endifnotequal %}
+                {% endfor %}
+            </select></p>
+            <input type="hidden" name="id" value="{{id}}"></form>
+            {% ifnotequal object.1 'Предмет' %}
+                <table border="1px">
+                <tr><th>id</th><th>Название</th><th>Кол-во типов</th><th>Изменить</th><th>Удалить</th></tr>
+                <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                    <td>-</td>
+                    <td><input name="name" placeholder="Название" autocomplete="off" class="input" required></td>
+                    <td>-</td>
+                    <td colspan="2"><input type="submit" name="newtopic" value="Добавить тему" class="submit"></td>
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="object" value="{{object.0}}">
+                </tr></form>
+                {% for t in listtopic %}
+                    <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                        <td><input type="hidden" name="idtopic" value="{{t.0}}">{{t.0}}</td>
+                        <td><input name="name" value="{{t.2}}" autocomplete="off" required class="input"></td>
+                        <td>{{t.3}}</td>
+                        <td><input type="submit" value="Изменить" name="uptopic" class="submit"></td>
+                        <td><input type="submit" value="Удалить" name="deltopic" class="submit"></td>
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="object" value="{{object.0}}">
+                    </tr></form>
+                {% endfor %}
+                </table>
+            {% endifnotequal %}
+        </details>
+    </div></p>
+    <p><div class="type">
+        <details {% if opentype == 'True' %}open{% endif %} class="flag">
+            <summary class="flag">Типы</summary>
+            <form action="/admin/tt/" method="POST">{% csrf_token %}
+            <p><select onchange="this.form.submit()" name="topic">
+            {% if topic.0 == '-' %}
+                <option>Тема</option>
+            {% endif %}
+            {% for i,j in list.items %}
+                <optgroup label="{{i.1}}">
+                    {% for t in j %}
+                        {% if t.0 != topic.0 %}
+                        <option value="{{t.0}}">{{t.1}}</option>
+                        {% else %}
+                        <option value="{{t.0}}" selected>{{t.1}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+            </select></p>
+            <input type="hidden" name="id" value="{{id}}"></form>
+            {% ifnotequal topic.0 '-' %}
+                <table border="1px">
+                <tr><th>id</th><th>Название</th><th>Кол-во вопросов</th><th>Изменить</th><th>Удалить</th></tr>
+                <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                    <td>-</td>
+                    <td><input name="name" placeholder="Название" autocomplete="off" class="input" required></td>
+                    <td>-</td>
+                    <td colspan="2"><input type="submit" name="newtype" value="Добавить тип" class="submit"></td>
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="topic" value="{{topic.0}}">
+                </tr></form>
+                {% for t in listtypes %}
+                    <tr><form action="/admin/tt/" method="POST">{% csrf_token %}
+                        <td><input type="hidden" name="idtype" value="{{t.0}}">{{t.0}}</td>
+                        <td><input name="name" value="{{t.1}}" autocomplete="off" required class="input"></td>
+                        <td>{{t.2}}</td>
+                        <td><input type="submit" value="Изменить" name="uptype" class="submit"></td>
+                        <td><input type="submit" value="Удалить" name="deltype" class="submit"></td>
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="hidden" name="topic" value="{{topic.0}}">
+                    </tr></form>
+                {% endfor %}
+                </table>
+            {% endifnotequal %}
+        </details>
+    </div></p>
+</body>
+</html>

@@ -1,0 +1,44 @@
+table {
+	width: 40%;
+	margin-bottom: 20px;
+	border: 1px solid grey;
+	border-collapse: collapse; 
+}
+table th {
+	font-weight: bold;
+	padding: 5px;
+	background: wheat;
+	border: 1px solid grey;
+}
+table td {
+	background: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+input.input{
+	width: 90%;
+    background-color: white;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: grey;
+}
+input.input:focus{
+    padding: 5px 0 1px 5px;
+    border-color: green;
+}
+.submit{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16xp;
+    color :#fff ;
+    background-color: #439bc4;
+    outline: none;  
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+select{
+    width: 150px;
+}
